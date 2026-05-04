@@ -1,0 +1,250 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f5f0e7;
+  --foreground: #1b211f;
+  --paper: #fbf7f0;
+  --panel: rgba(251, 247, 240, 0.84);
+  --panel-strong: rgba(255, 252, 247, 0.94);
+  --line: rgba(40, 50, 45, 0.12);
+  --muted: #66726e;
+  --accent: #2e5c4d;
+  --accent-soft: #dde9e2;
+  --signal: #a55a37;
+  --signal-soft: #f3ddd2;
+  --shadow: 0 28px 90px rgba(53, 45, 36, 0.12);
+  --font-sans-stack:
+    var(--font-body), "Avenir Next", "Segoe UI", "Helvetica Neue", "Nimbus Sans",
+    sans-serif;
+  --font-display-stack:
+    var(--font-display), "Iowan Old Style", "Palatino Linotype", "Book Antiqua",
+    Georgia, serif;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans-stack);
+  --font-display: var(--font-display-stack);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.92), transparent 34%),
+    linear-gradient(135deg, #e6ded2 0%, #f5f0e7 42%, #ebe3d6 100%);
+  overflow-x: hidden;
+  color-scheme: light;
+}
+
+body {
+  background:
+    radial-gradient(circle at 12% 18%, rgba(46, 92, 77, 0.1), transparent 26%),
+    radial-gradient(circle at 88% 14%, rgba(165, 90, 55, 0.11), transparent 24%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0)),
+    var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans-stack);
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(34, 39, 37, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 39, 37, 0.03) 1px, transparent 1px);
+  background-size: 26px 26px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent 88%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: auto 0 0 0;
+  height: 16rem;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(82, 66, 50, 0.06));
+}
+
+::selection {
+  background: rgba(46, 92, 77, 0.18);
+}
+
+.display-type {
+  font-family: var(--font-display-stack);
+}
+
+.paper-panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
+}
+
+.paper-panel-strong {
+  background: var(--panel-strong);
+  border: 1px solid rgba(40, 50, 45, 0.14);
+  box-shadow: var(--shadow);
+}
+
+.section-kicker {
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.blueprint-rule {
+  border-top: 1px solid rgba(46, 92, 77, 0.14);
+  border-bottom: 1px solid rgba(46, 92, 77, 0.05);
+}
+
+.grain {
+  position: relative;
+}
+
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.08;
+  background-image:
+    radial-gradient(rgba(22, 28, 27, 0.8) 0.55px, transparent 0.7px);
+  background-size: 11px 11px;
+  mix-blend-mode: multiply;
+}
+
+.dashboard-shell {
+  position: relative;
+}
+
+.dashboard-shell::before,
+.dashboard-shell::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.dashboard-shell::before {
+  top: 3rem;
+  right: -4rem;
+  width: 16rem;
+  height: 16rem;
+  background:
+    radial-gradient(circle, rgba(46, 92, 77, 0.18) 0%, rgba(46, 92, 77, 0) 72%);
+}
+
+.dashboard-shell::after {
+  left: -5rem;
+  bottom: 8rem;
+  width: 18rem;
+  height: 18rem;
+  background:
+    radial-gradient(circle, rgba(165, 90, 55, 0.14) 0%, rgba(165, 90, 55, 0) 70%);
+}
+
+.lift-card {
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.lift-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 50px rgba(53, 45, 36, 0.1);
+}
+
+.accent-ring {
+  position: relative;
+  overflow: hidden;
+}
+
+.accent-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background:
+    linear-gradient(135deg, rgba(46, 92, 77, 0.24), rgba(255, 255, 255, 0.2));
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.ledger-grid {
+  background-image:
+    linear-gradient(rgba(46, 92, 77, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(46, 92, 77, 0.04) 1px, transparent 1px);
+  background-size: 38px 38px;
+}
+
+.reveal-fade {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-fade {
+    animation: reveal-fade 720ms cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+  }
+
+  .reveal-delay-1 {
+    animation-delay: 90ms;
+  }
+
+  .reveal-delay-2 {
+    animation-delay: 180ms;
+  }
+
+  .reveal-delay-3 {
+    animation-delay: 270ms;
+  }
+
+  .reveal-delay-4 {
+    animation-delay: 360ms;
+  }
+}
+
+@keyframes reveal-fade {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+button,
+a,
+input,
+select {
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid rgba(46, 92, 77, 0.45);
+  outline-offset: 2px;
+}
