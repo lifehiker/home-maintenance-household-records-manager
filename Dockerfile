@@ -16,6 +16,10 @@ ENV AUTH_SECRET="build-time-placeholder-secret"
 ENV NEXT_PUBLIC_APP_URL="https://localhost:3000"
 # Run any postinstall scripts now that all source files are present
 RUN npm rebuild 2>/dev/null || true
+# Some app builds may not produce a public/ dir. Ensure it exists so the
+# runner's `COPY --from=builder /app/public ./public` step can't fail with
+# "failed to compute cache key: ... /app/public not found".
+RUN mkdir -p /app/public
 RUN npm run build
 
 # Stage 3: Runner
