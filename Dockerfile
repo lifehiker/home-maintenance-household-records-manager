@@ -26,8 +26,7 @@ RUN npm run build
 FROM node:20-slim AS runner
 WORKDIR /app
 ENV NODE_ENV=production
-# Default AUTH_SECRET — app works with no Coolify env vars; override for production
-ENV AUTH_SECRET="forge-app-default-secret-override-in-production"
+# Private authentication secrets are supplied by the deployment environment.
 # Auth.js / NextAuth v5 refuses to serve when behind a proxy unless this is set
 # (errors.authjs.dev#untrustedhost). Coolify is always proxied, so this is
 # always correct for Forge-deployed apps. Without it, every request to an
@@ -51,4 +50,4 @@ ENV PORT=3000
 # ENV (Config.Env) and inline in CMD (process env) so neither layer wins for the
 # wrong reason.
 ENV HOSTNAME=0.0.0.0
-CMD ["sh", "-c", "HOSTNAME=0.0.0.0 exec node server.js"]
+CMD ["sh", "-c", "test -n \"$AUTH_SECRET\" && test -n \"$NEXTAUTH_SECRET\" || { echo \"Private authentication secrets are required\" >&2; exit 1; }; HOSTNAME=0.0.0.0 exec node server.js"]
